@@ -8,7 +8,7 @@ function NewProduct() {
   const onSubmitFomt = async (data) => {
     await axios.post(`${import.meta.env.VITE_API_URL}`, data);
     Swal.fire({
-      position: "top-end",
+      position: "center",
       icon: "success",
       title: "Your work has been saved",
       showConfirmButton: false,
