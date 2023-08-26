@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 function useAxiosGet(url) {
   const [products, setProducts] = useState(null);
   const [error, setError] = useState(null);
+  const [items, setItems] = useState(null);
 
   const getProducts = async (API) => {
     await axios
       .get(API)
-      .then((p) => setProducts(p.data.data))
+      .then((p) => {
+        setProducts(p.data.data);
+        setItems(p.data.totalItems);
+      })
       .catch((e) => setError(e));
   };
 
@@ -17,7 +21,7 @@ function useAxiosGet(url) {
     getProducts(url);
   }, [url]);
 
-  return { products, setProducts, error };
+  return { products, setProducts, error, setItems, items };
 }
 
 export { useAxiosGet };

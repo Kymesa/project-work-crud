@@ -6,7 +6,7 @@ import Skeleton from "./components/Skeleton";
 import { useAxiosGet } from "./hooks/useAxiosGet";
 import { Link } from "react-router-dom";
 function App() {
-  const { products, setProducts, error } = useAxiosGet(
+  const { products, setProducts, error, setItems, items } = useAxiosGet(
     import.meta.env.VITE_API_URL
   );
   return (
@@ -21,7 +21,7 @@ function App() {
             <h1>{error}</h1>
           ) : (
             <h3 className="text-white text-xl font-bold sm:text-2xl">
-              Products
+              Products {items}
             </h3>
           )}
 
@@ -38,6 +38,8 @@ function App() {
                   provider={p.provider}
                   category={p.category}
                   price={p.price}
+                  setItems={setItems}
+                  items={items}
                 />
               ))
             ) : (

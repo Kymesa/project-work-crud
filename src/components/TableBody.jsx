@@ -10,6 +10,8 @@ function TableBody({
   id,
   products,
   setProducts,
+  setItems,
+  items,
 }) {
   const handleClickDelete = async (id) => {
     Swal.fire({
@@ -24,6 +26,7 @@ function TableBody({
       if (result.isConfirmed) {
         axios.delete(`${import.meta.env.VITE_API_URL}/${id}`);
         setProducts(products.filter((p) => p._id !== id));
+        setItems(items - 1);
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
