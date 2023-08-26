@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 function TableBody({
   name,
@@ -37,6 +38,9 @@ function TableBody({
           <td className="px-6 py-4 whitespace-nowrap">{category}</td>
           <td className="px-6 py-4 whitespace-nowrap">${price}</td>
           <td className="px-6 py-4 whitespace-nowrap">
+            <Link to={"/edit/" + id}>
+              <button className="bg-blue-400 text-white mr-4">EDIT</button>
+            </Link>
             <button
               onClick={() => handleClickDelete(id)}
               className="bg-red-400"

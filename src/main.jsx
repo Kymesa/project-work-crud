@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NewProduct from "./components/NewProduct.jsx";
+import EditProduct from "./components/EditProduct.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: "/new",
     element: <NewProduct />,
+  },
+  {
+    path: "/edit/:id",
+    element: <EditProduct />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
