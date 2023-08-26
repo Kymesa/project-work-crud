@@ -1,19 +1,11 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 function NewProduct() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const onSubmitFomt = async (data) => {
     await axios.post(`${import.meta.env.VITE_API_URL}`, data);
-    await Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
-      showConfirmButton: false,
-      timer: 1500,
-    });
     navigate("/");
   };
   return (
