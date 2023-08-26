@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
+import Swal from "sweetalert2";
 function TableBody({
   name,
   provider,
@@ -10,8 +11,21 @@ function TableBody({
   setProducts,
 }) {
   const handleClickDelete = async (id) => {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/${id}`);
-    setProducts(products.filter((p) => p._id !== id));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${import.meta.env.VITE_API_URL}/${id}`);
+        setProducts(products.filter((p) => p._id !== id));
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
   };
 
   return (
