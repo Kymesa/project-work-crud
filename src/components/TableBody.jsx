@@ -40,10 +40,15 @@ function TableBody({
           <td className="px-6 py-4 whitespace-nowrap">{provider}</td>
           <td className="px-6 py-4 whitespace-nowrap">{category}</td>
           <td className="px-6 py-4 whitespace-nowrap">${price}</td>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <Link to={"/edit/" + id}>
-              <button className="bg-blue-400 text-white mr-4">EDIT</button>
+          <td className="px-3 py-4 whitespace-nowrap">
+            <Link
+              to={"/edit/" + id}
+              state={{ name, provider, category, price }}
+            >
+              <button className="bg-blue-400 text-white mr-1">EDIT</button>
             </Link>
+          </td>
+          <td className="px-1 py-4 whitespace-nowrap">
             <button
               onClick={() => handleClickDelete(id)}
               className="bg-red-400"
