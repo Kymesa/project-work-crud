@@ -1,24 +1,41 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function EditProduct() {
   const { id } = useParams();
-  const [product, setProducts] = useState(null);
-  const { register, handleSubmit } = useForm();
+  const [data, setData] = useState(null);
+
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+    // resolver: zodResolver(schema),
+    defaultValues: async () => {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
+      setData(data);
+      return {
+        name: data.data.name,
+        provider: data.data.provider,
+        category: data.data.category,
+        price: data.data.price,
+      };
+    },
+  });
+
   const navigate = useNavigate();
 
   const handleSubmitFormEdit = async (data) => {
     await axios.put(`${import.meta.env.VITE_API_URL}/${id}`, data);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     navigate("/");
   };
-
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/${id}`)
-      .then((p) => setProducts(p.data.data));
-  }, [id]);
 
   return (
     <>
@@ -26,8 +43,7 @@ function EditProduct() {
         <h2 className="text-center font-semibold text-gray-700 capitalize dark:text-white">
           EDIT PRODUCT
         </h2>
-
-        {product ? (
+        {data ? (
           <form onSubmit={handleSubmit(handleSubmitFormEdit)}>
             <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
@@ -38,7 +54,6 @@ function EditProduct() {
                   Name
                 </label>
                 <input
-                  defaultValue={product.name}
                   {...register("name")}
                   id="name"
                   type="text"
@@ -54,7 +69,6 @@ function EditProduct() {
                   provider
                 </label>
                 <input
-                  defaultValue={product.provider}
                   {...register("provider")}
                   id="provider"
                   type="text"
@@ -70,7 +84,6 @@ function EditProduct() {
                   category
                 </label>
                 <input
-                  defaultValue={product.category}
                   {...register("category")}
                   id="category"
                   type="text"
@@ -86,7 +99,6 @@ function EditProduct() {
                   price
                 </label>
                 <input
-                  defaultValue={product.price}
                   {...register("price")}
                   id="price"
                   type="number"
@@ -104,21 +116,19 @@ function EditProduct() {
 
               <button
                 type="submit"
-                className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-orange-600 focus:outline-none focus:bg-orange-600"
               >
                 Save
               </button>
             </div>
           </form>
         ) : (
-          <>
-            <ul className="mt-5 space-y-3 w-[100vh]">
-              <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-              <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-              <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-              <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-            </ul>
-          </>
+          <ul className="mt-5 space-y-3 w-[100vh]">
+            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
+            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
+            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
+            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
+          </ul>
         )}
       </section>
     </>

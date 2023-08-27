@@ -10,6 +10,8 @@ function TableBody({
   id,
   products,
   setProducts,
+  setItems,
+  items,
 }) {
   const handleClickDelete = async (id) => {
     Swal.fire({
@@ -24,6 +26,7 @@ function TableBody({
       if (result.isConfirmed) {
         axios.delete(`${import.meta.env.VITE_API_URL}/${id}`);
         setProducts(products.filter((p) => p._id !== id));
+        setItems(items - 1);
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -37,10 +40,15 @@ function TableBody({
           <td className="px-6 py-4 whitespace-nowrap">{provider}</td>
           <td className="px-6 py-4 whitespace-nowrap">{category}</td>
           <td className="px-6 py-4 whitespace-nowrap">${price}</td>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <Link to={"/edit/" + id}>
-              <button className="bg-blue-400 text-white mr-4">EDIT</button>
+          <td className="px-3 py-4 whitespace-nowrap">
+            <Link
+              to={"/edit/" + id}
+              state={{ name, provider, category, price }}
+            >
+              <button className="bg-blue-400 text-white mr-1">EDIT</button>
             </Link>
+          </td>
+          <td className="px-1 py-4 whitespace-nowrap">
             <button
               onClick={() => handleClickDelete(id)}
               className="bg-red-400"

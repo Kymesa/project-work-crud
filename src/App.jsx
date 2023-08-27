@@ -3,12 +3,29 @@ import "./App.css";
 import TableHeader from "./components/TableHeader";
 import TableBody from "./components/TableBody";
 import Skeleton from "./components/Skeleton";
-import { useAxiosGet } from "./hooks/useAxiosGet";
+// import { useAxiosGet } from "./hooks/useAxiosGet";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 function App() {
-  const { products, setProducts, error } = useAxiosGet(
-    import.meta.env.VITE_API_URL
-  );
+  // const { products, setProducts, error, setItems, items } = useAxiosGet(
+  //   import.meta.env.VITE_API_URL
+  // );
+
+  const [products, setProducts] = useState(null);
+  const [items, setItems] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}`)
+      .then((p) => {
+        setProducts(p.data.data);
+        setItems(p.data.totalItems);
+      })
+      .catch((e) => setError(e));
+  }, []);
+
   return (
     <>
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -21,7 +38,7 @@ function App() {
             <h1>{error}</h1>
           ) : (
             <h3 className="text-white text-xl font-bold sm:text-2xl">
-              Products
+              Products {items}
             </h3>
           )}
 
@@ -38,6 +55,8 @@ function App() {
                   provider={p.provider}
                   category={p.category}
                   price={p.price}
+                  setItems={setItems}
+                  items={items}
                 />
               ))
             ) : (

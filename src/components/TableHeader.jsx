@@ -7,6 +7,7 @@ function TableHeader() {
         <th className="py-3 px-6">Category</th>
         <th className="py-3 px-6">Price</th>
         <th className="py-3 px-6">Action</th>
+        <th className="py-3 px-6">Action</th>
       </tr>
     </thead>
   );
