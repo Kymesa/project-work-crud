@@ -24,10 +24,10 @@ function TableBody({
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios.delete(`${import.meta.env.VITE_API_URL}/${id}`);
         setProducts(products.filter((p) => p._id !== id));
         setItems(items - 1);
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
   };
