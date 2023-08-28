@@ -9,11 +9,11 @@ function EditProduct() {
 
   const { state } = useLocation();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({});
 
   const navigate = useNavigate();
-  const handleSubmitFormEdit = async (d) => {
-    await axios.put(`${import.meta.env.VITE_API_URL}/${id}`, d);
+  const handleSubmitFormEdit = async (data) => {
+    await axios.put(`${import.meta.env.VITE_API_URL}/${id}`, data);
     Swal.fire({
       position: "center",
       icon: "success",
@@ -41,7 +41,7 @@ function EditProduct() {
                 Name
               </label>
               <input
-                defaultValue={state.name}
+                // defaultValue={state.name}
                 {...register("name")}
                 id="name"
                 type="text"
@@ -57,7 +57,7 @@ function EditProduct() {
                 provider
               </label>
               <input
-                defaultValue={state.provider}
+                // defaultValue={state.provider}
                 {...register("provider")}
                 id="provider"
                 type="text"
@@ -73,7 +73,7 @@ function EditProduct() {
                 category
               </label>
               <input
-                defaultValue={state.category}
+                // defaultValue={state.category}
                 {...register("category")}
                 id="category"
                 type="text"
@@ -89,7 +89,7 @@ function EditProduct() {
                 price
               </label>
               <input
-                defaultValue={state.price}
+                // defaultValue={state.price}
                 {...register("price")}
                 id="price"
                 type="number"
@@ -113,15 +113,6 @@ function EditProduct() {
             </button>
           </div>
         </form>
-
-        {/* : (
-          <ul className="mt-5 space-y-3 w-[100vh]">
-            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-            <li className="w-full h-4 bg-gray-200 rounded-md dark:bg-gray-700"></li>
-          </ul>
-        )} */}
       </section>
     </>
   );
