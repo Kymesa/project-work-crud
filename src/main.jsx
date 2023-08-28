@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NewProduct from "./components/NewProduct.jsx";
 import EditProduct from "./components/EditProduct.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
