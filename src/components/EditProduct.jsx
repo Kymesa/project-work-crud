@@ -6,11 +6,8 @@ import Swal from "sweetalert2";
 
 function EditProduct() {
   const { id } = useParams();
-
   const { state } = useLocation();
-
   const { register, handleSubmit } = useForm({});
-
   const navigate = useNavigate();
   const handleSubmitFormEdit = async (data) => {
     await axios.put(`${import.meta.env.VITE_API_URL}/${id}`, data);
@@ -41,7 +38,7 @@ function EditProduct() {
                 Name
               </label>
               <input
-                // defaultValue={state.name}
+                defaultValue={state.name}
                 {...register("name")}
                 id="name"
                 type="text"
@@ -57,7 +54,7 @@ function EditProduct() {
                 provider
               </label>
               <input
-                // defaultValue={state.provider}
+                defaultValue={state.provider}
                 {...register("provider")}
                 id="provider"
                 type="text"
@@ -73,7 +70,7 @@ function EditProduct() {
                 category
               </label>
               <input
-                // defaultValue={state.category}
+              defaultValue={state.category}
                 {...register("category")}
                 id="category"
                 type="text"
@@ -89,7 +86,7 @@ function EditProduct() {
                 price
               </label>
               <input
-                // defaultValue={state.price}
+               defaultValue={state.price}
                 {...register("price")}
                 id="price"
                 type="number"
